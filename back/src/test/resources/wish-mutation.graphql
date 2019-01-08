@@ -1,0 +1,30 @@
+mutation addWishForUser {
+  addWishForUser(userId: "5bfaf678ad595e55a09dc573", name: "knife") {
+    id
+    name
+    description
+    price
+    owner {
+      id
+      firstName
+      lastName
+      mail
+    }
+  }
+}
+
+
+mutation updateWishForUser {
+    updateWishForUser(wishId: "5bfaf678ad595e55a09dc574", description: "une montre connecté fossil Q") {
+        id
+        name
+        description
+        price
+        owner {
+          id
+          firstName
+          lastName
+          mail
+        }
+    }
+}

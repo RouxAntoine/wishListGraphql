@@ -1,0 +1,25 @@
+query users {
+  users {
+    ...user
+    wishes {
+      ...idWish
+      name
+      description
+      price
+      owner {
+        ...user
+      }
+    }
+  }
+}
+
+fragment user on User {
+  id
+  firstName
+  lastName
+  mail
+}
+
+fragment idWish on Wish {
+  id
+}

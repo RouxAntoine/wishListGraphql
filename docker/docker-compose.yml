@@ -1,0 +1,29 @@
+version: '3.6'
+services:
+  mongo:
+    image: mongo
+    restart: always
+    container_name: mongodb
+#    command: sleep infinity
+    environment:
+      MONGO_INITDB_DATABASE: application
+      MONGO_INITDB_ROOT_USERNAME: spring
+#      <password> is replace by makefile on running time
+      MONGO_INITDB_ROOT_PASSWORD: <password>
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo:/data/db
+      - ./init.d:/docker-entrypoint-initdb.d
+  java:
+    build:
+      context: ../back/target/libs/
+      dockerfile: ../../../docker/Dockerfile
+      args:
+        JAR_FILE: back-1.0.jar
+    container_name: javaWishList
+    ports:
+        - "8082:8080"
+
+volumes:
+  mongo:

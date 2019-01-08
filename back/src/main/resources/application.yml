@@ -1,0 +1,65 @@
+debug: false # Enable debug logs.
+trace: false # Enable trace logs.
+
+spring:
+  profiles:
+    active:
+      - dev
+  data:
+    mongodb:
+      authentication-database: admin                # Authentication database name.
+      database: application                         # Database name.
+      host: dx30.local                              # Mongo server host. Cannot be set with URI.
+      port: 27017                                   # Mongo server port. Cannot be set with URI.
+#      field-naming-strategy= # Fully qualified name of the FieldNamingStrategy to use.
+#      grid-fs-database= # GridFS database name.
+#      repositories.type=auto                       # Type of Mongo repositories to enable.
+#      uri: mongodb://dx30.local:27017/application   # Mongo database URI. Cannot be set with host, port and credentials.
+      username: spring                              # Login user of the mongo server. Cannot be set with URI.!
+
+logging:
+  level:
+    org:
+      apache:
+        tomcat: INFO
+        util:
+          net: WARN
+
+
+#graphql:
+#  # graphql servlet properties
+#  servlet:
+#    mapping: /graphql
+#    enabled: true
+#    corsEnabled: true
+#
+#  # graphql tools properties
+#  tools:
+#    schemaLocationPattern: '**/*.graphqls'
+#    # Enable or disable the introspection query. Disabling it puts your server in contravention of the GraphQL
+#    # specification and expectations of most clients, so use this option with caution
+#    introspectionEnabled: true
+
+# graphiql properties
+graphiql:
+  mapping: /graphiql
+  endpoint:
+#    graphql: /
+    graphql: /api/endpoint
+    subscriptions: /subscriptions
+  static:
+    basePath: /
+  enabled: true
+  pageTitle: GraphiQL
+  cdn:
+    enabled: true
+#    version: 0.11.11
+  props:
+#    resources:
+#      query: query.graphql
+#      defaultQuery: defaultQuery.graphql
+#      variables: variables.graphql
+    variables:
+      editorTheme: "solarized light"
+  headers:
+    Authorization: "Bearer 05bd9a5f3fe0408f89520946b0fe1b06"

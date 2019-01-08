@@ -1,0 +1,63 @@
+plugins {
+    id('org.springframework.boot') version('2.1.0.RELEASE') apply(false)
+}
+
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+
+description = 'Sample graphql project back module'
+group = 'sample backend for graphql'
+
+// Apply the java plugin to add support for Java
+apply plugin: 'java'
+// Apply the application plugin to add support for building an application
+apply plugin: 'application'
+
+// Define the main class for the application
+mainClassName = 'com.main.Main'
+sourceCompatibility=11.0
+
+// In this section you declare where to find the dependencies of your project
+repositories {
+    // Use jcenter for resolving your dependencies.
+    // You can declare any Maven/Ivy/file repository here.
+    jcenter()
+    mavenCentral()
+}
+
+// dependency to other module
+dependencies {
+    def withoutStuff = {
+//        delegate.configure(noSupport.delegate=delegate) // equivalent to:  noSupport.delegate=delegate; noSupport()
+        exclude group: 'com.graphql-java', module: 'graphql-java'
+    }
+
+    // ********** spring dependency ********** //
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
+    // spring starter kit for graphql
+//    implementation 'com.graphql-java-kickstart:graphql-spring-boot-starter:5.0.6'
+    // to embed GraphiQL tool
+    implementation 'com.graphql-java-kickstart:graphiql-spring-boot-starter:5.0.6'
+
+    // ********** non spring dependency ********** //
+    implementation 'com.graphql-java:graphql-java:11.0'
+//    implementation 'com.graphql-java:graphql-java-tools:5.2.4'                                    // schema driven
+//    implementation 'com.graphql-java-kickstart:graphql-java-tools:5.3.5'                          // schema driven
+//    implementation 'com.embedler.moon.graphql:spring-graphql-common:2.1.0-2016-05-22T16-50-32'    // annotation driven
+//    implementation 'io.github.graphql-java:graphql-java-annotations:5.4'                          // annotation driven
+    implementation('io.github.graphql-java:graphql-java-annotations:6.2') //, withoutStuff)         // annotation driven
+    // compile project(':A')
+
+    // This dependency is found on compile classpath of this component and consumers.
+    implementation 'com.google.guava:guava:23.0'
+
+    compileOnly 'org.projectlombok:lombok:1.18.4'
+    // for annotation processing not require anymore
+    // apt 'org.projectlombok:lombok:1.18.4'
+
+    // ********** test dependency ********** //
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    // Use JUnit test framework
+    testCompile 'junit:junit:4.12'
+}
